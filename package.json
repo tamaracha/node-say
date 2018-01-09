@@ -15,6 +15,7 @@
   "engines": {
     "node": ">=8.0.0"
   },
+  "os": ["darwin"],
   "dependencies": {
     "await-fs": "^1.0.0",
     "koa": "^2.4.1",
