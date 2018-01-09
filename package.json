@@ -1,6 +1,6 @@
 {
   "name": "node-say",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Rest server for OS X's say command",
   "main": "src/index.js",
   "scripts": {
