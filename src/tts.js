@@ -28,9 +28,9 @@ async function speak (opts) {
   const filepath = path.format({
     dir: os.tmpdir(),
     name: uuidv4(),
-    ext: opts.format ? '.' + opts.format : '.aiff'
+    ext: '.wav'
   });
-  let cmd = ['say'];
+  let cmd = ['say --data-format LEI16@48000'];
   cmd.push(...['-o', filepath]);
   if (opts.voice) cmd.push(...['-v', opts.voice]);
   cmd.push(opts.text);

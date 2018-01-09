@@ -34,8 +34,7 @@ module.exports = new Router()
     type: 'json',
     body: {
       text: Joi.string().required(),
-      voice: Joi.string().regex(/[a-z0-9\w]+/i),
-      format: Joi.string().length(3).alphanum()
+      voice: Joi.string().regex(/[a-z0-9\w]+/i)
     }
   },
   handler: async ctx => {
