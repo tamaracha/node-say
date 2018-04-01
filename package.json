@@ -15,23 +15,25 @@
   "engines": {
     "node": ">=8.0.0"
   },
-  "os": ["darwin"],
+  "os": [
+    "darwin"
+  ],
   "dependencies": {
     "await-fs": "^1.0.0",
-    "koa": "^2.4.1",
+    "koa": "^2.5.0",
     "koa-joi-router": "^5.1.0",
-    "uuid": "^3.1.0"
+    "uuid": "^3.2.1"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:tamaracha/node-say.git"
   },
   "devDependencies": {
-    "eslint": "^4.15.0",
-    "eslint-config-standard": "^11.0.0-beta.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1"
   }
 }
