@@ -21,7 +21,7 @@
   "dependencies": {
     "koa": "^2.5.0",
     "koa-joi-router": "^5.1.0",
-    "uuid": "^3.2.1"
+    "uuid": "^3.3.2"
   },
   "repository": {
     "type": "git",
