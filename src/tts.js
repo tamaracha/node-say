@@ -3,7 +3,6 @@ const path = require('path')
 const util = require('util')
 const exec = util.promisify(require('child_process').exec)
 const fs = require('fs')
-const aw = require('await-fs')
 const os = require('os')
 const uuidv4 = require('uuid/v4')
 
@@ -42,7 +41,7 @@ async function speak (opts) {
     hadError = err
   })
   stream.on('close', () => {
-    if (!hadError) aw.unlink(filepath)
+    if (!hadError) fs.promises.unlink(filepath)
   })
   return stream
 }
