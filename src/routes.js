@@ -13,7 +13,7 @@ module.exports = new Router()
         lang: Joi.string().regex(/^[a-z]{2}_[A-Z]{2}$/)
       }),
       output: {
-        '200': {
+        200: {
           body: Joi.array().items({
             name: Joi.string().required().regex(/[a-z0-9\w]+/i),
             lang: Joi.string().required().regex(/^[a-z]{2}_[A-Z]{2}$/)

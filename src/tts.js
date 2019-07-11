@@ -29,7 +29,7 @@ async function speak (opts) {
     name: uuidv4(),
     ext: '.wav'
   })
-  let cmd = ['say --data-format LEI16@48000']
+  const cmd = ['say --data-format LEI16@48000']
   cmd.push(...['-o', filepath])
   if (opts.voice) cmd.push(...['-v', opts.voice])
   cmd.push(opts.text)
