@@ -4,7 +4,7 @@ const util = require('util')
 const exec = util.promisify(require('child_process').exec)
 const fs = require('fs')
 const os = require('os')
-const uuidv4 = require('uuid/v4')
+const { uuidv4 } = require('uuid')
 
 module.exports = { getVoices, speak }
 
