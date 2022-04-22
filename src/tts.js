@@ -4,25 +4,44 @@ const util = require('util')
 const exec = util.promisify(require('child_process').exec)
 const fs = require('fs')
 const os = require('os')
-const { uuidv4 } = require('uuid')
+const uuidv4 = require('uuid').v4
 
 module.exports = { getVoices, speak }
 
+/**
+ * @typedef {object} Voice
+ * @property {string} name
+ * @property {string} lang
+*/
+
+/**
+ * @return {Promise<Voice[]>}
+*/
 async function getVoices () {
   const { stdout, stderr } = await exec('say -v ?')
   if (stderr) throw stderr
-  return stdout.split('\n')
-    .map(v => {
-      if (!v) return
-      const lm = v.match(/[a-z]{2}_[A-Z]{2}/)
-      if (!lm) return
+  if (stdout === undefined) return []
+  /** @type {string[]} */
+  const lines = stdout.split('\n').filter(l => l !== '')
+  /** @type {Voice[]} */
+  const voices = []
+  lines.forEach(v => {
+    const lm = v.match(/[a-z]{2}_[A-Z]{2}/)
+    if (lm !== null) {
       const lang = lm[0]
       const name = v.slice(0, lm.index).trim()
-      return { name, lang }
-    })
-    .filter(v => !!v)
+      voices.push({ name, lang })
+    }
+  })
+  return voices
 }
 
+/**
+ * @param {object} opts
+ * @param {string} opts.voice
+ * @param {string} opts.text
+ * @return {Promise<{ filepath: string, data: fs.ReadStream }>}
+*/
 async function speak (opts) {
   const filepath = path.format({
     dir: os.tmpdir(),
@@ -34,14 +53,15 @@ async function speak (opts) {
   if (opts.voice) cmd.push(...['-v', opts.voice])
   cmd.push(opts.text)
   const { stderr } = await exec(cmd.join(' '))
-  if (stderr) throw stderr
-  const stream = fs.createReadStream(filepath, { bufferSize: 64 * 1024 })
-  let hadError = null
-  stream.on('error', (err) => {
+  if (stderr !== '') throw stderr
+  const data = fs.createReadStream(filepath)
+  /** @type {Error} */
+  let hadError
+  data.on('error', (err) => {
     hadError = err
   })
-  stream.on('close', () => {
-    if (!hadError) fs.promises.unlink(filepath)
+  data.on('close', () => {
+    if (hadError !== undefined) fs.promises.unlink(filepath)
   })
-  return stream
+  return { filepath, data }
 }

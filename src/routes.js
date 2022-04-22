@@ -4,7 +4,7 @@ const Router = require('koa-joi-router')
 const Joi = Router.Joi
 const tts = require('./tts')
 
-module.exports = new Router()
+module.exports = Router()
   .route({
     path: '/voices',
     method: 'get',
@@ -38,9 +38,9 @@ module.exports = new Router()
       }
     },
     handler: async ctx => {
-      const stream = await tts.speak(ctx.request.body)
-      ctx.attachment(path.basename(stream.path))
-      ctx.type = path.extname(stream.path)
-      ctx.body = stream
+      const { filepath, data } = await tts.speak(ctx.request.body)
+      ctx.attachment(path.basename(filepath))
+      ctx.type = path.extname(filepath)
+      ctx.body = data
     }
   })
