@@ -28,6 +28,6 @@
     "url": "git@github.com:tamaracha/node-say.git"
   },
   "devDependencies": {
-    "standard": "^16.0.3"
+    "standard": "^17.0.0"
   }
 }
